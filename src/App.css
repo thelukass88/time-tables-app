@@ -73,5 +73,39 @@ button {
   width: 80px;
   height: 80px;
   font-size: 1.5rem;
+  cursor: pointer;;
+}
+.start-quiz-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+/* Center the number selection and button in the middle of the screen */
+.number-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* min-height: 100vh; */
+  text-align: center;
+}
+
+.number-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.number-selection button {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2em;
+}
+
+.start-quiz-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
   cursor: pointer;
 }

@@ -21,7 +21,7 @@ const NumberSelection = ({ onStart }) => {
   };
 
   return (
-    <div>
+    <div className="number-selection-container">
       <h2>Select Times Table Numbers (2 to 12)</h2>
       <div className="number-selection">
         {[...Array(11)].map((_, index) => {
@@ -37,7 +37,9 @@ const NumberSelection = ({ onStart }) => {
           );
         })}
       </div>
-      <button onClick={handleStart}>Start Quiz</button>
+      <button onClick={handleStart} className="start-quiz-button">
+        Start Quiz
+      </button>
     </div>
   );
 };
