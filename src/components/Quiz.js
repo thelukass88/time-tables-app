@@ -6,7 +6,6 @@ function Quiz({ question, userAnswer, setUserAnswer, timeLeft, handleAnswer }) {
   return (
     <div className="quiz">
       <p className="question-text">{question.num1} x {question.num2}=</p>
-      <div className="timer">Time left: {timeLeft}s</div>
       <input
         type="text"
         value={userAnswer}
