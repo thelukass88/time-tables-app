@@ -1,86 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import FrontPage from './components/FrontPage';
 import Quiz from './components/Quiz';
-import Scoreboard from './components/Scoreboard';
 import NumberPad from './components/NumberPad';
 
 function App() {
-  const [score, setScore] = useState(0);
-  const [question, setQuestion] = useState(generateQuestion());
+  const [selectedNumbers, setSelectedNumbers] = useState([]);  // Array of selected numbers
+  const [questions, setQuestions] = useState([]);              // Array of questions
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
-  const [timeLeft, setTimeLeft] = useState(6); // Timer state
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(6);
 
-  // Generate a new question
-  function generateQuestion() {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    return { num1, num2, answer: num1 * num2 };
-  }
+  const handleStartQuiz = (numbers) => {
+    setSelectedNumbers(numbers);
+  };
 
-  // Handle answer submission
-  function handleAnswer() {
-    if (parseInt(userAnswer) === question.answer) {
-      setScore(score + 1);
-      alert("Correct!");
-    } else {
-      alert("Try again!");
-    }
-    setUserAnswer(''); // Clear the answer
-    setQuestion(generateQuestion()); // Generate a new question
-    setTimeLeft(6); // Reset the timer
-  }
-
-  // Handle number pad functions
-  function handleNumberClick(number) {
-    setUserAnswer(userAnswer + number); // Append the clicked number to the answer
-  }
-
-  function handleClear() {
-    setUserAnswer(''); // Clear the answer field
-  }
-
-  function handleDelete() {
-    setUserAnswer(userAnswer.slice(0, -1)); // Remove the last digit
-  }
-
-  // Timer effect
+  // Generate 25 questions using random selected numbers
   useEffect(() => {
-    // Reset the timer for a new question
+    if (selectedNumbers.length > 0) {
+      const newQuestions = Array.from({ length: 25 }, () => {
+        const num1 = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
+        const num2 = Math.floor(Math.random() * 12) + 1;
+        const isNum1 = Math.random() > 0.5;
+        return {
+          num1: isNum1 ? num1 : num2,
+          num2: isNum1 ? num2 : num1,
+          answer: num1 * num2,
+        };
+      });
+      setQuestions(newQuestions);
+    }
+  }, [selectedNumbers]);
+
+  function handleAnswer() {
+    if (
+      questions.length > 0 &&
+      questions[currentQuestionIndex] &&
+      parseInt(userAnswer) === questions[currentQuestionIndex].answer
+    ) {
+      setScore(score + 1);
+    }
+
+    setUserAnswer('');
     setTimeLeft(6);
+
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setShowScore(true);
+    }
+  }
+
+  useEffect(() => {
+    if (selectedNumbers.length === 0 || showScore) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          handleAnswer(); // Automatically submit answer when time runs out
-          return 0; // Prevent going below 0
+          handleAnswer();
+          return 0;
         }
-        return prev - 1; // Decrement timer
+        return prev - 1;
       });
-    }, 1000); // Update every second
+    }, 1000);
 
-    return () => clearInterval(timer); // Cleanup on unmount
-  }, [question]); // Restart timer when question changes
+    return () => clearInterval(timer);
+  }, [currentQuestionIndex, selectedNumbers, showScore]);
 
   return (
     <div className="App">
-      <h1>Times Tables Quiz</h1>
-      <Scoreboard score={score} />
-      <Quiz
-        question={question}
-        userAnswer={userAnswer}
-        setUserAnswer={setUserAnswer}
-        timeLeft={timeLeft} // Pass timeLeft to Quiz component
-      />
-      <NumberPad 
-        onNumberClick={handleNumberClick} 
-        onClear={handleClear} 
-        onDelete={handleDelete} 
-        handleAnswer={handleAnswer}
-      />
+      {selectedNumbers.length === 0 ? (
+        <FrontPage onStartQuiz={handleStartQuiz} />
+      ) : showScore ? (
+        <div>
+          <h1>Quiz Complete!</h1>
+          <p>Your Score: {score} / 25</p>
+        </div>
+      ) : (
+        questions.length > 0 && (
+          <>
+            <Quiz
+              question={questions[currentQuestionIndex]}
+              userAnswer={userAnswer}
+              setUserAnswer={setUserAnswer}
+              timeLeft={timeLeft}
+              handleAnswer={handleAnswer}
+            />
+            <NumberPad 
+              onNumberClick={(number) => setUserAnswer(userAnswer + number)} 
+              onClear={() => setUserAnswer('')} 
+              onDelete={() => setUserAnswer(userAnswer.slice(0, -1))} 
+              handleAnswer={handleAnswer}
+            />
+          </>
+        )
+      )}
     </div>
   );
 }
 
 export default App;
+
+
 

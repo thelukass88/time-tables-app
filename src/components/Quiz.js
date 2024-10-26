@@ -1,14 +1,16 @@
 import React from 'react';
 
-function Quiz({ question, userAnswer, setUserAnswer, timeLeft }) {
+function Quiz({ question, userAnswer, setUserAnswer, timeLeft, handleAnswer }) {
+  if (!question) return null; // If question is undefined, render nothing
+
   return (
     <div className="quiz">
-      <p className="question-text">What is {question.num1} x {question.num2}?</p>
-      <div className="timer">Time left: {timeLeft}s</div> {/* Display timer */}
+      <p className="question-text">{question.num1} x {question.num2}=</p>
+      <div className="timer">Time left: {timeLeft}s</div>
       <input
         type="text"
         value={userAnswer}
-        readOnly
+        onChange={(e) => setUserAnswer(e.target.value)}
         placeholder="Your answer"
       />
     </div>
@@ -16,4 +18,5 @@ function Quiz({ question, userAnswer, setUserAnswer, timeLeft }) {
 }
 
 export default Quiz;
+
 

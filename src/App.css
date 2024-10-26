@@ -1,3 +1,20 @@
+/* App.css */
+.number-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.number-selection button.selected {
+  background-color: #4CAF50; /* Example color for selected buttons */
+  color: white;
+}
+.start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
 /* Center the App container */
 .App {
   display: flex;
@@ -15,16 +32,17 @@ p {
 
 /* Style for the Quiz component */
 .answer {
-  margin-bottom: 10px;    /* Adjust this value for spacing between input and number pad */
+  margin-bottom: 20px;    /* Adjust this value for spacing between input and number pad */
   width: 260px; /* Adjusted to match total button width */
 }
 
 /* Input field styling */
 input {
-  width: 100%;            /* Set a width for consistency */
+  width: 97%;            /* Set a width for consistency */
   height: 40px;           /* Set a height */
   font-size: 1.5rem;      /* Font size */
   text-align: center;      /* Center text in input */
+  padding-bottom: 10px;
 }
 
 /* Existing styles for number pad */
@@ -40,6 +58,7 @@ input {
   display: grid;
   grid-template-columns: repeat(3, 80px); /* Creates a 3-column grid */
   gap: 10px;
+  padding-top: 10px;
 }
 
 /* Center align action buttons below the number pad */
