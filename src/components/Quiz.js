@@ -1,14 +1,14 @@
 import React from 'react';
 
-function Quiz({ question, userAnswer }) {
+function Quiz({ question, userAnswer, setUserAnswer, timeLeft }) {
   return (
-    <div className='quiz'>
-      <p>{question.num1} x {question.num2}=</p>
+    <div className="quiz">
+      <p className="question-text">What is {question.num1} x {question.num2}?</p>
+      <div className="timer">Time left: {timeLeft}s</div> {/* Display timer */}
       <input
-        className='answer'
         type="text"
         value={userAnswer}
-        readOnly // Prevents typing directly, allowing only number pad input
+        readOnly
         placeholder="Your answer"
       />
     </div>
