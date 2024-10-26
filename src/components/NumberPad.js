@@ -1,7 +1,7 @@
 import React from 'react';
 
 function NumberPad({ onNumberClick, onClear, onDelete, handleAnswer }) {
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <div className="number-pad">
@@ -11,8 +11,9 @@ function NumberPad({ onNumberClick, onClear, onDelete, handleAnswer }) {
             {number}
           </button>
         ))}
-        <button onClick={handleAnswer}>Submit Answer</button>
         <button onClick={onDelete}>Delete</button>
+        <button key={0} onClick={() => onNumberClick(0)}>0</button>
+        <button onClick={handleAnswer}>Enter</button>
       </div>
     </div>
   );

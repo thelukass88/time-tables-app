@@ -7,8 +7,14 @@
   height: 100vh;          /* Full height of the viewport */
 }
 
+/* Styling for the p tag containing question sum */
+p {
+  font-size: 2.5rem; 
+  text-align: center; 
+}
+
 /* Style for the Quiz component */
-.quiz {
+.answer {
   margin-bottom: 10px;    /* Adjust this value for spacing between input and number pad */
   width: 260px; /* Adjusted to match total button width */
 }
