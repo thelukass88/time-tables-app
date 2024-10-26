@@ -1,38 +1,52 @@
+/* Center the App container */
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;    /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh;          /* Full height of the viewport */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Style for the Quiz component */
+.quiz {
+  margin-bottom: 10px;    /* Adjust this value for spacing between input and number pad */
+  width: 260px; /* Adjusted to match total button width */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Input field styling */
+input {
+  width: 100%;            /* Set a width for consistency */
+  height: 40px;           /* Set a height */
+  font-size: 1.5rem;      /* Font size */
+  text-align: center;      /* Center text in input */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Existing styles for number pad */
+.number-pad {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Number grid styles */
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 80px); /* Creates a 3-column grid */
+  gap: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Center align action buttons below the number pad */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Styling the buttons */
+button {
+  width: 80px;
+  height: 80px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
