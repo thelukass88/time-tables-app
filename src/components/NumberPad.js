@@ -11,9 +11,9 @@ function NumberPad({ onNumberClick, onClear, onDelete, handleAnswer }) {
             {number}
           </button>
         ))}
-        <button onClick={onDelete}>Delete</button>
+        <button onClick={onDelete} className="delete-button">Delete</button>
         <button key={0} onClick={() => onNumberClick(0)}>0</button>
-        <button onClick={handleAnswer}>Enter</button>
+        <button onClick={handleAnswer} className="enter-button">Enter</button>
       </div>
     </div>
   );

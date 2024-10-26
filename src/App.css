@@ -21,7 +21,6 @@
   flex-direction: column; /* Stack elements vertically */
   align-items: center;    /* Center horizontally */
   justify-content: center; /* Center vertically */
-  height: 100vh;          /* Full height of the viewport */
 }
 
 /* Styling for the p tag containing question sum */
@@ -51,6 +50,15 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+/* Style specifically for the Delete and Submit buttons */
+.number-pad .delete-button,
+.number-pad .enter-button {
+  height: 60px;
+  font-size: 0.9em; /* Slightly smaller font size for long text */
+  padding: 0; /* Remove extra padding */
+  border-radius: 10px; /* Optional: make these buttons rectangular */
 }
 
 /* Number grid styles */
