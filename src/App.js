@@ -16,8 +16,13 @@ function App() {
 
   const generateQuestion = useCallback(() => {
     if (selectedNumbers.length === 0) return null; // Ensure there's a number to use
-    const num1 = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
-    const num2 = Math.floor(Math.random() * 12) + 1; // Questions up to 12
+  
+    const selectedNum = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
+    const randomNum = Math.floor(Math.random() * 12) + 1; // Questions up to 12
+  
+    // Randomly assign `selectedNum` as either `num1` or `num2`
+    const [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
+  
     return { num1, num2, answer: num1 * num2 };
   }, [selectedNumbers]);
 
