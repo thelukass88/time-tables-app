@@ -1,4 +1,9 @@
 /* App.css */
+/* App.css */
+body {
+  background-color: #caf0f8; /* Set the background color */
+}
+
 .number-selection {
   display: flex;
   flex-wrap: wrap;
