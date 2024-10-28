@@ -15,10 +15,12 @@ function App() {
   const [showScore, setShowScore] = useState(false);
 
   const generateQuestion = useCallback(() => {
-    if (selectedNumbers.length === 0) return null; // Ensure there's a number to use
+    if (selectedNumbers.length === 0) return null; // Ensure there are selected numbers
   
     const selectedNum = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
-    const randomNum = Math.floor(Math.random() * 12) + 1; // Questions up to 12
+    // Determine the range based on the selected number
+    const rangeLimit = selectedNum >= 11 ? 12 : 10; // Use 1–10 for numbers 1–10, 1–12 for 11 and 12
+    const randomNum = Math.floor(Math.random() * rangeLimit) + 1; 
   
     // Randomly assign `selectedNum` as either `num1` or `num2`
     const [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
