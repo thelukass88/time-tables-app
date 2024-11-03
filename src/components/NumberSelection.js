@@ -42,14 +42,15 @@ const NumberSelection = ({ onStart }) => {
         })}
       </div>
       <div className="square-numbers-container">
-      <label>
-        <input
-          type="checkbox"
-          checked={squareNumbersSelected}
-          onChange={handleSquareNumbersToggle}
-        />
-        Include Square Numbers (2×2 to 12×12)
-      </label>
+        <div className="square-numbers-wrapper">
+          <input
+            type="checkbox"
+            checked={squareNumbersSelected}
+            onChange={handleSquareNumbersToggle}
+            id="includeSquares"
+          />
+          <label htmlFor="includeSquares">Include Square Numbers (2×2 to 12×12)</label>
+        </div>
       </div>
       <button onClick={handleStart} className="start-quiz-button">
         Start Quiz

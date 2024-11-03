@@ -47,11 +47,29 @@ body {
   color: white;
 }
 
-/* Square numbers checkbox container */
+/* Center the container for square numbers */
 .square-numbers-container {
   display: flex;
   justify-content: center;
+  width: 100%; /* Ensure full width on mobile */
   margin-top: 15px;
+}
+
+/* Center-align and stack the checkbox and label */
+.square-numbers-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+.square-numbers-wrapper input[type="checkbox"] {
+  margin-bottom: 5px; /* Space between checkbox and label */
+}
+
+.square-numbers-container label {
+  display: flex;
+  justify-content: center;
+  width: 100%;            /* Center label text */
 }
 
 /* Start quiz button */
