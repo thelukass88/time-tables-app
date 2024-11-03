@@ -1,95 +1,89 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Quiz from './components/Quiz';
-// import Scoreboard from './components/Scoreboard';
 import NumberPad from './components/NumberPad';
-import NumberSelection from './components/NumberSelection'; // Make sure to import this
+import NumberSelection from './components/NumberSelection';
 
 function App() {
   const [score, setScore] = useState(0);
-  const [question, setQuestion] = useState(null); // Start as null
+  const [question, setQuestion] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [selectedNumbers, setSelectedNumbers] = useState([]);
+  const [squareNumbersSelected, setSquareNumbersSelected] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(6);
   const [showScore, setShowScore] = useState(false);
 
   const generateQuestion = useCallback(() => {
-    if (selectedNumbers.length === 0) return null; // Ensure there are selected numbers
-  
-    const selectedNum = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
-    // Determine the range based on the selected number
-    const rangeLimit = selectedNum >= 11 ? 12 : 10; // Use 1–10 for numbers 1–10, 1–12 for 11 and 12
-    const randomNum = Math.floor(Math.random() * rangeLimit) + 1; 
-  
-    // Randomly assign `selectedNum` as either `num1` or `num2`
-    const [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
-  
-    return { num1, num2, answer: num1 * num2 };
-  }, [selectedNumbers]);
+    if (selectedNumbers.length === 0 && !squareNumbersSelected) return null;
+
+    if (squareNumbersSelected && Math.random() < 0.5) {
+      const num = Math.floor(Math.random() * 11) + 2; // Pick a random number from 2 to 12
+      return { num1: num, num2: num, answer: num * num };
+    } else {
+      const selectedNum = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
+      const rangeLimit = selectedNum >= 11 ? 12 : 10;
+      const randomNum = Math.floor(Math.random() * rangeLimit) + 1;
+      const [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
+      return { num1, num2, answer: num1 * num2 };
+    }
+  }, [selectedNumbers, squareNumbersSelected]);
 
   const handleAnswer = useCallback(() => {
-    // Check if user answer is correct
     if (question && parseInt(userAnswer) === question.answer) {
       setScore(prevScore => prevScore + 1);
     }
-
     setUserAnswer('');
-    setTimeLeft(6); // Reset time for next question
-
-    if (currentQuestionIndex < 24) { // Assuming you want 25 questions (0-24)
+    setTimeLeft(6);
+    if (currentQuestionIndex < 24) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
       setQuestion(generateQuestion());
     } else {
-      setShowScore(true); // Show score at the end
+      setShowScore(true);
     }
   }, [question, userAnswer, currentQuestionIndex, generateQuestion]);
 
   useEffect(() => {
-    if (showScore) return; // Don't start timer if showing score
-
+    if (showScore) return;
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
+      setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          handleAnswer(); // Call handleAnswer when time runs out
+          handleAnswer();
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
-
-    return () => clearInterval(timer); // Cleanup interval on unmount
+    return () => clearInterval(timer);
   }, [timeLeft, showScore, handleAnswer]);
 
   useEffect(() => {
-    // Only generate the first question if selectedNumbers are set
-    if (selectedNumbers.length > 0) {
-      setQuestion(generateQuestion()); // Generate the first question after numbers are selected
+    if (selectedNumbers.length > 0 || squareNumbersSelected) {
+      setQuestion(generateQuestion());
     }
-  }, [selectedNumbers, generateQuestion]);
+  }, [selectedNumbers, squareNumbersSelected, generateQuestion]);
 
-  // Function to start the quiz by setting selected numbers
-  const startQuiz = (numbers) => {
+  const startQuiz = (numbers, squaresSelected) => {
     setSelectedNumbers(numbers);
-    setScore(0); // Reset score to 0
+    setSquareNumbersSelected(squaresSelected);
+    setScore(0);
     setCurrentQuestionIndex(0);
-    setShowScore(false); // Hide score initially
+    setShowScore(false);
     setTimeLeft(6);
     setUserAnswer('');
   };
 
-  // Number pad functions
   function handleNumberClick(number) {
-    setUserAnswer(userAnswer + number); // Append the clicked number to the answer
+    setUserAnswer(userAnswer + number);
   }
 
   function handleClear() {
-    setUserAnswer(''); // Clear the answer field
+    setUserAnswer('');
   }
 
   function handleDelete() {
-    setUserAnswer(userAnswer.slice(0, -1)); // Remove the last digit
+    setUserAnswer(userAnswer.slice(0, -1));
   }
 
   return (
@@ -97,10 +91,10 @@ function App() {
       <h1>Times Tables Quiz</h1>
       {showScore ? (
         <div>
-          <h2>Your Final Score: {score} out of 25</h2> {/* Show final score only here */}
+          <h2>Your Final Score: {score} out of 25</h2>
         </div>
-      ) : selectedNumbers.length === 0 ? (
-        <NumberSelection onStart={startQuiz} /> // Show selection component if no numbers selected
+      ) : selectedNumbers.length === 0 && !squareNumbersSelected ? (
+        <NumberSelection onStart={startQuiz} />
       ) : (
         <>
           <Quiz
@@ -122,6 +116,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
