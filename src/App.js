@@ -15,19 +15,29 @@ function App() {
   const [showScore, setShowScore] = useState(false);
 
   const generateQuestion = useCallback(() => {
+    // If no numbers are selected and square numbers are not selected, return null
     if (selectedNumbers.length === 0 && !squareNumbersSelected) return null;
-
-    if (squareNumbersSelected && Math.random() < 0.5) {
+  
+    let num1, num2;
+  
+    // If square numbers are selected, choose a square question 50% of the time
+    if (squareNumbersSelected && (selectedNumbers.length === 0 || Math.random() < 0.5)) {
       const num = Math.floor(Math.random() * 11) + 2; // Pick a random number from 2 to 12
-      return { num1: num, num2: num, answer: num * num };
+      num1 = num;
+      num2 = num;
     } else {
+      // If square numbers aren't chosen or we decide to ask a regular question
       const selectedNum = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
       const rangeLimit = selectedNum >= 11 ? 12 : 10;
       const randomNum = Math.floor(Math.random() * rangeLimit) + 1;
-      const [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
-      return { num1, num2, answer: num1 * num2 };
+  
+      // Randomly assign `selectedNum` as either `num1` or `num2`
+      [num1, num2] = Math.random() > 0.5 ? [selectedNum, randomNum] : [randomNum, selectedNum];
     }
+  
+    return { num1, num2, answer: num1 * num2 };
   }, [selectedNumbers, squareNumbersSelected]);
+  
 
   const handleAnswer = useCallback(() => {
     if (question && parseInt(userAnswer) === question.answer) {
