@@ -41,6 +41,7 @@ const NumberSelection = ({ onStart }) => {
           );
         })}
       </div>
+      <div className="square-numbers-container">
       <label>
         <input
           type="checkbox"
@@ -49,6 +50,7 @@ const NumberSelection = ({ onStart }) => {
         />
         Include Square Numbers (2×2 to 12×12)
       </label>
+      </div>
       <button onClick={handleStart} className="start-quiz-button">
         Start Quiz
       </button>

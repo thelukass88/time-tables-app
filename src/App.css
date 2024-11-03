@@ -1,104 +1,26 @@
 /* App.css */
-/* App.css */
+
+/* Global styling */
 body {
-  background-color: #caf0f8; /* Set the background color */
+  background-color: #caf0f8; /* Background color */
 }
 
-.number-selection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-.number-selection button.selected {
-  background-color: #4CAF50; /* Example color for selected buttons */
-  color: white;
-}
-.start-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-}
-
-/* Center the App container */
+/* Main App container */
 .App {
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center;    /* Center horizontally */
-  justify-content: center; /* Center vertically */
-}
-
-/* Styling for the p tag containing question sum */
-p {
-  font-size: 2.5rem; 
-  text-align: center; 
-}
-
-/* Style for the Quiz component */
-.answer {
-  margin-bottom: 20px;    /* Adjust this value for spacing between input and number pad */
-  width: 260px; /* Adjusted to match total button width */
-}
-
-/* Input field styling */
-input {
-  width: 97%;            /* Set a width for consistency */
-  height: 40px;           /* Set a height */
-  font-size: 1.5rem;      /* Font size */
-  text-align: center;      /* Center text in input */
-  padding-bottom: 10px;
-}
-
-/* Existing styles for number pad */
-.number-pad {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Style specifically for the Delete and Submit buttons */
-.number-pad .delete-button,
-.number-pad .enter-button {
-  height: 60px;
-  font-size: 0.9em; /* Slightly smaller font size for long text */
-  padding: 0; /* Remove extra padding */
-  border-radius: 10px; /* Optional: make these buttons rectangular */
-}
-
-/* Number grid styles */
-.number-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, 80px); /* Creates a 3-column grid */
-  gap: 10px;
-  padding-top: 10px;
-}
-
-/* Center align action buttons below the number pad */
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-/* Styling the buttons */
-button {
-  width: 80px;
-  height: 80px;
-  font-size: 1.5rem;
-  cursor: pointer;;
-}
-.start-quiz-button {
-  padding: 10px 20px;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-.number-selection-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+/* Number selection container */
+.number-selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .number-selection {
@@ -116,8 +38,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #333; /* Optional: adds a border for clarity */
-  background-color: #f0f0f0; /* Light background color */
+  border: 1px solid #333;
+  background-color: #f0f0f0;
 }
 
 .number-selection button.selected {
@@ -125,17 +47,81 @@ button {
   color: white;
 }
 
+/* Square numbers checkbox container */
+.square-numbers-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+/* Start quiz button */
 .start-quiz-button {
   padding: 10px 20px;
   font-size: 1.2em;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-/* Responsive adjustments */
+/* Question display styling */
+p {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+/* Answer input field */
+.answer {
+  margin-bottom: 20px;
+  width: 260px;
+}
+
+input {
+  width: 97%;
+  height: 40px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+/* Number pad styling */
+.number-pad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.number-pad .delete-button,
+.number-pad .enter-button {
+  height: 60px;
+  font-size: 0.9em;
+  padding: 0;
+  border-radius: 10px;
+}
+
+button {
+  width: 80px;
+  height: 80px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive styling */
 @media (max-width: 600px) {
   .number-selection button {
-    width: 40px; /* Slightly smaller on mobile */
+    width: 40px;
     height: 40px;
     font-size: 1em;
+  }
+
+  .square-numbers-container {
+    width: 100%;
+    justify-content: center;
   }
 }
