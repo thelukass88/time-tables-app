@@ -139,7 +139,9 @@ button {
   }
 
   .square-numbers-container {
-    width: 100%;
+    display: flex;
     justify-content: center;
+    width: 100%; /* Ensure full width on mobile */
+    margin-top: 15px;
   }
 }
